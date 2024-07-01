@@ -1,0 +1,6 @@
+framework module Pods_FilmBoxMVP {
+  umbrella header "Pods-FilmBoxMVP-umbrella.h"
+
+  export *
+  module * { export * }
+}
