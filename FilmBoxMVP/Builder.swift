@@ -9,7 +9,7 @@ import UIKit
 
 protocol Builder {
     static func createMainViewController() -> UIViewController
-    //static func detailViewController(film: Movie?) -> UIViewController
+    static func detailViewController(film: Movie?) -> UIViewController
 }
 
 class ModelBuilder: Builder {
@@ -22,9 +22,12 @@ class ModelBuilder: Builder {
         return view
     }
     
-//    static func detailViewController(film: Movie?) -> UIViewController {
-//        <#code#>
-//    }
-    
-    
+    static func detailViewController(film: Movie?) -> UIViewController {
+        let view = DetailViewController()
+        let network = NetworkDataFetch()
+        let presenter = DetailPresenter(view: view, network: network, film: film!)
+        view.presenter = presenter
+        return view
+    }
+
 }

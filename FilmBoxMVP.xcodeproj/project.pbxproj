@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0CC5BD1B2C31B3C7005F662C /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC5BD1A2C31B3C7005F662C /* Builder.swift */; };
+		0CC5BD1D2C343F8D005F662C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC5BD1C2C343F8D005F662C /* DetailViewController.swift */; };
 		0CE2B7802C318B4000661241 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2B77F2C318B4000661241 /* AppDelegate.swift */; };
 		0CE2B7822C318B4000661241 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2B7812C318B4000661241 /* SceneDelegate.swift */; };
 		0CE2B7842C318B4000661241 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2B7832C318B4000661241 /* ViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0CC5BD1A2C31B3C7005F662C /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
+		0CC5BD1C2C343F8D005F662C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0CE2B77C2C318B4000661241 /* FilmBoxMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilmBoxMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE2B77F2C318B4000661241 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0CE2B7812C318B4000661241 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				0CE2B7A52C318FC900661241 /* DetailPresenter.swift */,
+				0CC5BD1C2C343F8D005F662C /* DetailViewController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				0CE2B7A62C318FC900661241 /* DetailPresenter.swift in Sources */,
 				0CC5BD1B2C31B3C7005F662C /* Builder.swift in Sources */,
 				0CE2B7802C318B4000661241 /* AppDelegate.swift in Sources */,
+				0CC5BD1D2C343F8D005F662C /* DetailViewController.swift in Sources */,
 				0CE2B7A42C318FB200661241 /* MainPresenter.swift in Sources */,
 				0CE2B7B12C31A73800661241 /* MainViewController.swift in Sources */,
 				0CE2B7B32C31A7FB00661241 /* MainTableViewCell.swift in Sources */,

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MainViewController: UIViewController, UITextFieldDelegate {
+class MainViewController: UIViewController, UISearchBarDelegate {
     
     let cellID = ""
     
@@ -26,7 +26,14 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     return label
     }()
     
-    private let serchTextField = CustomTextField(filedTypr: .search)
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchBarStyle = .prominent
+        searchBar.placeholder = "Поиск фильма"
+        searchBar.sizeToFit()
+        searchBar.delegate = self
+        return searchBar
+    }()
     
     private let buttonSerch = CustomButtons(title: "Поиск", fontSize: .med)
     
@@ -43,7 +50,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         table.dataSource = self
         table.delegate = self
-        serchTextField.delegate = self
+        searchBar.delegate = self
         setupUI()
         presenter.getTopFilms()
         addTarget()
@@ -54,7 +61,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func tabSerch() {
-        guard serchTextField.text != "" else {
+        guard searchBar.text != "" else {
             self.isSearch = false
             presenter.getTopFilms()
             DispatchQueue.main.async {
@@ -62,7 +69,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             }
         return }
         
-        guard let filmSerch = serchTextField.text else { return }
+        guard let filmSerch = searchBar.text else { return }
         self.isSearch = true
         presenter.searchFilm(keyword: filmSerch)
         DispatchQueue.main.async {
@@ -70,10 +77,15 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
+        presenter.searchFilm(keyword: searchBar.text ?? "")
+    }
+
+    
     func setupUI() {
         view.backgroundColor = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 255/255)
         self.view.addSubview(lableApp)
-        self.view.addSubview(serchTextField)
+        self.view.addSubview(searchBar)
         self.view.addSubview(buttonSerch)
         self.view.addSubview(table)
         
@@ -82,7 +94,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             make.left.equalTo(20)
         }
         
-        serchTextField.snp.makeConstraints { make in
+        searchBar.snp.makeConstraints { make in
             make.top.equalTo(lableApp.snp_bottomMargin).inset(-30)
             make.left.equalTo(20)
             make.right.equalTo(-120)
@@ -91,7 +103,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         buttonSerch.snp.makeConstraints { make in
             make.top.equalTo(lableApp.snp_bottomMargin).inset(-30)
-            make.left.equalTo(serchTextField.snp_rightMargin).inset(-20)
+            make.left.equalTo(searchBar.snp_rightMargin).inset(-20)
             make.width.equalTo(90)
             make.height.equalTo(40)
         }
@@ -127,6 +139,16 @@ extension MainViewController: UITableViewDelegate {
         140
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let filmID = presenter.films[indexPath.row].filmId ?? 0
+        NetworkDataFetch.fetchMovieDetail(id: filmID, responce: { result, error in
+            DispatchQueue.main.async {
+                let detail = ModelBuilder.detailViewController(film: result)
+                self.present(detail, animated: true)
+            }
+        })
+    }
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
             let header = view as! UITableViewHeaderFooterView
             header.textLabel?.textColor = .darkGray
@@ -137,7 +159,7 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isSearch {
-            return "Результаты по запросу: \(serchTextField.text ?? "")"
+            return "Результаты по запросу: \(searchBar.text ?? "")"
         } else {
             return "Популярные фильмы "
         }

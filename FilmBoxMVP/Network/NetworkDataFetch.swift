@@ -31,7 +31,9 @@ class NetworkDataFetch: NetworkDataFetchProtocol {
         }
     }
     
-    static func fetchMovieDetail(urlString: String, responce: @escaping (Movie?, Error?) -> ()) {
+    static func fetchMovieDetail(id: Int, responce: @escaping (Movie?, Error?) -> ()) {
+        
+        let urlString = "https://kinopoiskapiunofficial.tech/api/v2.2/films/\(id)"
         
         NetworkRequest.requestDataFetch(url: urlString) { result in
             switch result {
